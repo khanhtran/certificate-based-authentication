@@ -1,0 +1,10 @@
+Architecture Overview:
+- Identity Provider (IdP): Issues access tokens after verifying the client's certificate.
+- Protected API Server: Exposes an API secured with OAuth2, verifying the token from the IdP.
+- Client Application: Uses a keypair and certificate to authenticate with the IdP and obtain an access token, then calls the protected API
+
+Authentication Flow:
+1- The client signs a request with its private key and presents the certificate.
+2- The IdP verifies the certificate, authenticates the client, and issues an access token (JWT).
+3- The client calls the protected API with the token.
+4- The API validates the token with the IdP’s public key.
