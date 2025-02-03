@@ -16,6 +16,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>idp</module>
+		<module>client</module>
 	</modules>
 	<properties>
 		<java.version>21</java.version>

@@ -53,7 +53,7 @@ public class IdentityProviderApplication {
         KeyPair keyPair = KeyPairGenerator.getInstance("RSA").generateKeyPair();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-
+        System.out.println("publicKey: " + publicKey.toString());
         // Create the JWK for the RSA key pair
         JWK jwk = new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)

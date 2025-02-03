@@ -1,0 +1,11 @@
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:server.p12
+    key-store-password: password
+    key-store-type: PKCS12
+    key-alias: mykey
+    client-auth: need  # Enforce client certificate authentication
+    trust-store: classpath:server.p12  # The server also needs to trust the client's cert
+    trust-store-password: password
+    trust-store-type: PKCS12
