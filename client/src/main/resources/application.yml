@@ -1,0 +1,5 @@
+server:
+  ssl:
+#    trust-store: classpath:client.p12
+    trust-store-password: password
+    trust-store-type: PKCS12

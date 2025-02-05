@@ -1,5 +1,6 @@
 - generate the server keypair, store as keystore file
 keytool -genkeypair -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore server.p12 -validity 365 -dname "CN=localhost" -storepass password -keypass password
+
 - configure the server to run as ssl
 # Enable SSL
 server.ssl.enabled=true
@@ -15,6 +16,12 @@ server.ssl.trust-store-type=PKCS12
 # list items in keystore
 keytool -list --keystore server.p12
 --
+
+- export the server certificate:
+keytool -exportcert -alias mykey -keystore server.p12 -storepass password -rfc -file server-cert.pem
+
+# import client key into the server trust store
+keytool -importcert -alias client-cert -file client-cert.pem -keystore server.p12 -storepass password
 
 # export public key
 

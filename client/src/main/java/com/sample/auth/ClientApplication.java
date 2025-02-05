@@ -3,12 +3,12 @@ package com.sample.auth;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
-import java.io.FileInputStream;
 import java.security.KeyStore;
 import java.util.Map;
 
@@ -22,15 +22,16 @@ public class ClientApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Load client certificate from keystore
-        KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        keyStore.load(new FileInputStream("client-keystore.p12"), "password".toCharArray());
-
-        // Set up SSL context with the client certificate
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, null, null);
-
-        SSLParameters sslParameters = sslContext.getDefaultSSLParameters();
-        sslParameters.setNeedClientAuth(true);
+//        ClassPathResource resource = new ClassPathResource("client.p12");
+//        KeyStore keyStore = KeyStore.getInstance("PKCS12");
+//        keyStore.load(resource.getInputStream(), "password".toCharArray());
+//
+//        // Set up SSL context with the client certificate
+//        SSLContext sslContext = SSLContext.getInstance("TLS");
+//        sslContext.init(null, null, null);
+//
+//        SSLParameters sslParameters = sslContext.getDefaultSSLParameters();
+//        sslParameters.setNeedClientAuth(true);
 
         // Request JWT token from IdP
         WebClient webClient = WebClient.builder()
@@ -44,6 +45,7 @@ public class ClientApplication implements CommandLineRunner {
                 .bodyToMono(Map.class)
                 .block();
 
+        System.out.println("tokenResponse: " + tokenResponse);
         if (tokenResponse != null && tokenResponse.containsKey("access_token")) {
             String jwtToken = tokenResponse.get("access_token");
 
